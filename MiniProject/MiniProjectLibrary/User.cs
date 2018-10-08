@@ -2,7 +2,8 @@
 
 namespace MiniProjectLibrary
 {
-    public class User
+    abstract class person
     {
+        
     }
 }

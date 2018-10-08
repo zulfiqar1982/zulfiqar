@@ -13,5 +13,13 @@ namespace MiniProject
         {
 
         }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            if(txtLoginName.Text == "zulfiqar" && txtPassword.Text == "zulfiqar")
+            {
+                Server.Transfer("Default.aspx", true);
+            }
+        }
     }
 }
