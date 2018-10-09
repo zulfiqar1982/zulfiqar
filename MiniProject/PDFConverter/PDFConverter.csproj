@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="FreeSpire.PDF" Version="4.3.1" />
-    <PackageReference Include="iTextSharp" Version="5.5.13" />
   </ItemGroup>
 
 </Project>

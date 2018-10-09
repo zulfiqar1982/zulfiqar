@@ -259,6 +259,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PDFConverter\PDFConverter.csproj">
+      <Project>{0b2582d8-f8f9-40c3-b8a9-b22997562121}</Project>
+      <Name>PDFConverter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectLibrary\ProjectLibrary.csproj">
       <Project>{f8454b0f-5620-4461-87e7-de308de90545}</Project>
       <Name>ProjectLibrary</Name>
