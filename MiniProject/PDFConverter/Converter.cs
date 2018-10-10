@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
-using Spire.Pdf;
+using System.IO;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
 
 
 namespace PDFConverter
@@ -9,7 +13,7 @@ namespace PDFConverter
     public class Converter
     {
 
-        private PdfDocument Document;
+        private PdfReader Document;
 
         public string Text { get; set; }
 
@@ -21,32 +25,40 @@ namespace PDFConverter
 
         public Converter(string path)
         {
-            Document = new PdfDocument();
-            Document.LoadFromFile(path);
+            path = @"C:\Users\zulfiqar\Downloads\Expense Claim Form (1).pdf";
+            StringBuilder text = new StringBuilder();
+            Document = new PdfReader(path);
         }
 
-        public string ExtractText(int PageNo)
+        //public string ExtractText(int PageNo)
+        //{
+        //    ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+        //    string currentText = PdfTextExtractor.GetTextFromPage(pdfReader, page, strategy);
+
+        //    currentText = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(currentText)));
+
+
+        //    PdfPages page = Document.GetPageContent(PageNo);
+        //    StringBuilder content = new StringBuilder();
+        //    Text = content.Append(page.ExtractText()).ToString();            
+        //    return Text;
+        //}
+
+        public string ReadPdfFile()
         {
-            PdfPageBase page = GetPage(PageNo);
-            StringBuilder content = new StringBuilder();
-            Text = content.Append(page.ExtractText()).ToString();            
-            return Text;
-        }
+            StringBuilder text = new StringBuilder();
 
-        private PdfPageBase GetPage(int PageNo)
-        {
-            PdfPageBase page = null;
+            for (int page = 1; page <= Document.NumberOfPages; page++)
+                {
+                    ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+                    string currentText = PdfTextExtractor.GetTextFromPage(Document, page, strategy);
 
-            try
-            {
-                page = Document.Pages[PageNo];
-            }
-            catch(Exception ex)
-            {
-                throw new Exception("No page for the given page no");
-            }
+                    currentText = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(currentText)));
+                    text.Append(currentText);
+                }
+                Document.Close();
 
-            return page;
+            return text.ToString();
         }
 
 

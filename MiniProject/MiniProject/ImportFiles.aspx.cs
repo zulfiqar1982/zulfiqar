@@ -29,8 +29,8 @@ namespace MiniProject
                 try
                 {
                     ViewState["path"] = Path.GetFullPath(this.fileUpload.FileName);
-                   
-                    //fileUpload.SaveAs(Server.MapPath("~/") + FilePath);
+                    FilePath = Path.GetFullPath(this.fileUpload.FileName);
+                    fileUpload.SaveAs(Server.MapPath("~/") + FilePath);
                     StatusLabel.Text = "Upload status: File uploaded!";
                 }
                 catch(Exception ex)
@@ -50,7 +50,7 @@ namespace MiniProject
         {
 
             Converter pdf = new Converter(FilePath);
-            txtExtract.Text = pdf.ExtractText(0);
+            txtExtract.Text = pdf.ReadPdfFile();
         }
     }
 }
