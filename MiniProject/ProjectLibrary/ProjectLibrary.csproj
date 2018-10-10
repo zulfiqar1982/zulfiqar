@@ -7,6 +7,8 @@
   <ItemGroup>
     <PackageReference Include="FreeSpire.PDF" Version="4.3.1" />
     <PackageReference Include="iTextSharp" Version="5.5.13" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
   </ItemGroup>
 
 </Project>

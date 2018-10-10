@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ProjectLibrary;
 
 namespace MiniProject
 {
@@ -18,6 +19,8 @@ namespace MiniProject
         {
             if(txtLoginName.Text == "zulfiqar" && txtPassword.Text == "zulfiqar")
             {
+                SystemLogin logs = new SystemLogin();
+                List<User> users = logs.GetAllUser();
                 Server.Transfer("Default.aspx", true);
             }
         }
