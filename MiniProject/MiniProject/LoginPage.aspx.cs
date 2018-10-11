@@ -12,16 +12,35 @@ namespace MiniProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblError.Text = string.Empty;
         }
 
-        protected void btnLogin_Click(object sender, EventArgs e)
+        protected void btn_signIn_Click(object sender, EventArgs e)
         {
-            if(txtLoginName.Text == "zulfiqar" && txtPassword.Text == "zulfiqar")
+            SystemLogin logs = new SystemLogin();
+            List<User> users = logs.GetAllUser();
+
+            foreach (User user in users)
             {
-                SystemLogin logs = new SystemLogin();
-                List<User> users = logs.GetAllUser();
-                Server.Transfer("Default.aspx", true);
+                if (user.UserName.Equals(txt_username.Text))
+                {
+                    if (user.Password.Equals(txt_password.Text))
+                    {
+                        Server.Transfer("ImportFiles.aspx", true);
+                       
+                    }
+                    else
+                    {
+                        lblError.Text = "Wrong Password";
+                        
+                    }
+
+                    break;
+                }
+                else
+                {
+                    lblError.Text = "Username is not exists";
+                }
             }
         }
     }

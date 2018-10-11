@@ -25,24 +25,10 @@ namespace PDFConverter
 
         public Converter(string path)
         {
-            path = @"C:\Users\zulfiqar\Downloads\Expense Claim Form (1).pdf";
+            path = @"C:\Users\zulfiqar\Downloads\ExpenseClaimForm1_b2abe30fabca4b1ca322fafd74306ceb (1).pdf";
             StringBuilder text = new StringBuilder();
             Document = new PdfReader(path);
         }
-
-        //public string ExtractText(int PageNo)
-        //{
-        //    ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-        //    string currentText = PdfTextExtractor.GetTextFromPage(pdfReader, page, strategy);
-
-        //    currentText = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(currentText)));
-
-
-        //    PdfPages page = Document.GetPageContent(PageNo);
-        //    StringBuilder content = new StringBuilder();
-        //    Text = content.Append(page.ExtractText()).ToString();            
-        //    return Text;
-        //}
 
         public string ReadPdfFile()
         {
@@ -59,6 +45,21 @@ namespace PDFConverter
                 Document.Close();
 
             return text.ToString();
+        }
+
+        public string ReadFromPosition()
+        {
+            Rectangle rect = new Rectangle(100, 200, 200, 300);
+            RenderFilter[] filter = { new RegionTextRenderFilter(rect) };
+            ITextExtractionStrategy strategy;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 1; i <= Document.NumberOfPages; i++)
+            {
+                strategy = new FilteredTextRenderListener(new LocationTextExtractionStrategy(), filter);
+                sb.AppendLine(PdfTextExtractor.GetTextFromPage(Document, i, strategy));
+            }
+
+            return sb.ToString();
         }
 
 
