@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bytescout.PDF" Version="1.8.2.254" />
+    <PackageReference Include="Bytescout.PDFExtractor" Version="9.1.0.3170" />
     <PackageReference Include="FreeSpire.PDF" Version="4.3.1" />
     <PackageReference Include="iTextSharp" Version="5.5.13" />
   </ItemGroup>

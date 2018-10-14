@@ -5,6 +5,7 @@ using System.Data.SqlTypes;
 
 namespace ProjectLibrary
 {
+    [Serializable]
     public class Client
     {
         public string CompanyCode { get; set; }

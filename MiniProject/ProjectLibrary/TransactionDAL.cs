@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 
 namespace ProjectLibrary
 {
+
     public partial class Transaction
     {
         public class TransactionDAL
