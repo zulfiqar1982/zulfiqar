@@ -1,40 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClaimForm.aspx.cs" Inherits="MiniProject.ClaimForm" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc2" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc3" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 
        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script type="text/javascript">
-            //$(function () {
-            //    $("[id*=gw_ForEdit] [id*=lnkDelete]").click(function () {
-            //        if (confirm("Do you want to delete this Transaction?")) {
-            //            //Determine the GridView row within whose LinkButton was clicked.
-            //            var row = $(this).closest("tr");
-
-            //            //Look for the Hidden Field and fetch the CustomerId.
-            //            var index = parseInt(row.find("[id*=IndexDelete]").val());
-
-            //            //Make an AJAX call to server side and pass the fetched CustomerId.
-            //            $.ajax({
-            //                type: "POST",
-            //                url: "ClaimForm.aspx/DeleteTransaction",
-            //                data: '{index: ' + index + '}',
-            //                contentType: "application/json; charset=utf-8",
-            //                dataType: "json",
-            //                success: function RemoveRow(item) {
-            //                    var table = document.getElementById('gw_ForEdit');
-            //                    table.deleteRow(item.parentNode.parentNode.rowIndex);
-            //                    return false;
-            //                }
-                            
-            //            });
-            //        }
-            //        return false;
-            //    });
-            //});
-        </script>
+      
     <title></title>
      <style type="text/css">
         body { font-family: Arial; font-size: 10pt; }
@@ -59,7 +33,7 @@
         border-color: black;
         padding-top: 10px;
         padding-left: 10px;
-        width: 340px;
+        width: 360px;
         height: 460px;
     }
 
@@ -70,29 +44,50 @@
 
         <div>
            
-            <table>
+            <table style="width:100%">
                 <tr><td></td><td>
-                    <table style="">
+                <table style="width:100%">
                 <tr><td>
-                    <asp:Label ID="Label11" runat="server" Text="Label"></asp:Label>
-                    </td><td>:</td><td>
-                    <asp:TextBox ID="TextBox11" runat="server"></asp:TextBox>
+                    <asp:Label ID="Label11" runat="server" Text="Employee"></asp:Label>
+                    </td><td></td><td>
+                    <asp:TextBox ID="txtEmployeeId" runat="server"></asp:TextBox>
+                    </td>
+                    <td><asp:Label ID="Label14" runat="server" Text="Claim Date"></asp:Label>
+                    </td><td></td><td>
+                    <asp:TextBox ID="txtClaimDate" runat="server"></asp:TextBox>
+                          <asp:Image ID="imgClaimDate" runat="server" 
+                                        ImageUrl="~/Images/calendar.gif" />
+                        <cc2:CalendarExtender ID="CalendarExtender" runat="server"
+                                        TargetControlID="txtClaimDate" PopupButtonID="imgClaimDate" Format="dd-MMM-yyyy">
+                                    </cc2:CalendarExtender>
                     </td></tr>
                 <tr><td>
-                    <asp:Label ID="Label12" runat="server" Text="Label"></asp:Label>
-                    </td><td>:</td><td>
-                    <asp:TextBox ID="TextBox12" runat="server"></asp:TextBox>
-                    </td></tr>
-                <tr><<td>
-                    <asp:Label ID="Label13" runat="server" Text="Label"></asp:Label>
-                    </td><td>:</td><td>
-                    <asp:TextBox ID="TextBox13" runat="server"></asp:TextBox>
-                    </td></tr></table>
+                    <asp:Label ID="lblBankCode" runat="server" Text="Bank Code"></asp:Label>
+                    </td><td></td><td>
+                    <asp:TextBox ID="txtBankCode" runat="server"></asp:TextBox>
+                    </td>
+                    <td>
+                     <asp:Label ID="lblAccountCode" runat="server" Text="Account Code"></asp:Label>
+                    </td><td></td>
+                    <td>
+                    <asp:TextBox ID="TextBox15" runat="server"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr><td>
+                    <asp:Label ID="lblBranch" runat="server" Text="Branch Code"></asp:Label>
+                    </td><td></td><td>
+                    <asp:TextBox ID="txtBranchCode" runat="server"></asp:TextBox>
+                    </td>
+                    <td></td><td></td><td>
+                    
+                    </td>
+                </tr>
+                    <tr><td></td><td></td><td></td><td></td><td></td><td>
+                        <asp:Button ID="btnUpdateClaim" runat="server" Text="Update" OnClick="btnUpdateClaim_Click" /></td></tr>
+                </table>
 
                 </td><td></td></tr>
-                <tr><td></td><td></td><td></td></tr>
-                <tr><td></td><td></td><td></td></tr>
-                <tr><td></td><td></td><td></td></tr>
+
                 <tr><td></td><td style="align-content:center; align-items:center;">
          <asp:ScriptManager ID="ScriptManager1" runat="Server" />
             <asp:UpdatePanel runat="server" id="upData">
@@ -214,11 +209,15 @@
                        <asp:Button ID="btnAddTransaction" runat="server" Text="Add Claim Transaction" OnClick="btnAddTransaction_Click" />
                     <cc1:ModalPopupExtender ID ="mp1" runat="server" PopupControlID="pnlAddEdit" TargetControlID="btnAddTransaction"
                     CancelControlID="btnCancel" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
-                     <asp:Panel ID="pnlAddEdit" runat="server" CssClass="modalPopup" style = "display:None; align-self:center; align-content:center">
+                     <asp:Panel ID="pnlAddEdit" runat="server" CssClass="modalPopup" style = "display:none; align-self:center; align-content:center">
                          <h3>Transaction Details</h3>
                          <table>
                          <tr><td><asp:Label ID="Label10" runat="server" Text="ID"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtID" runat="server" Width="194px"></asp:TextBox></td></tr>
-                         <tr><td><asp:Label ID="Label1" runat="server" Text="Date"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtDate" runat="server" Width="194px"></asp:TextBox></td></tr>
+                         <tr><td><asp:Label ID="Label1" runat="server" Text="Date"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtDate" runat="server" Width="194px"></asp:TextBox><asp:Image ID="imgClaimDetailDate" runat="server" 
+                                        ImageUrl="~/Images/calendar.gif" />
+                        <cc3:CalendarExtender ID="CalendarExtender2" runat="server"
+                                        TargetControlID="txtDate" PopupButtonID="imgClaimDetailDate" Format="dd-MMM-yyyy">
+                                    </cc3:CalendarExtender></td></tr>
                          <tr><td><asp:Label ID="Label2" runat="server" Text="Cost Center"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtCostCenter" runat="server" Width="194px"></asp:TextBox></td></tr>
                          <tr><td><asp:Label ID="Label3" runat="server" Text="GL Code"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtGLCode" runat="server" Width="194px"></asp:TextBox></td></tr>
                          <tr><td><asp:Label ID="Label4" runat="server" Text="Description"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtDescription" runat="server" Width="194px"></asp:TextBox></td></tr>

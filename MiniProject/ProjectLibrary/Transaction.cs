@@ -36,19 +36,19 @@ namespace ProjectLibrary
         public Transaction()
         {
             index = "0";
-            dateofTransaction = new DateTime(2018, 10, 2);
-            costCenter = "1";
-            gLCode = "4321";
-            description = "Mobile";
+            dateofTransaction = DateTime.Today;
+            costCenter = string.Empty;
+            gLCode = string.Empty;
+            description = string.Empty;
             currency = "RM";
-            amount = new decimal(20.0);
-            gST = 2;
+            amount = new decimal(0.0);
+            gST = 0;
             eExchangeRate = 1;
             totalAmount = (Amount + (decimal)GST) * 1 ;
 
         }
 
-        public void Save()
+        public void Save(int ClaimId)
         {
 
         }

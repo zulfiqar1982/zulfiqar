@@ -26,7 +26,7 @@ namespace MiniProject
                 {
                     if (user.Password.Equals(txt_password.Text))
                     {
-                        Server.Transfer("ImportFiles.aspx", true);
+                        Server.Transfer("ClaimList.aspx", true);
                        
                     }
                     else
