@@ -14,8 +14,11 @@ namespace MiniProject
         public List<Claim> Claims;
         protected void Page_Load(object sender, EventArgs e)
         {
-            Claims = new List<Claim>();
-            Claims = (List<Claim>)Session["Claims"];
+            
+            SystemLogin logs = new SystemLogin();
+            Claims = logs.GetAllClaim();
+            Session["Claims"] = Claims;
+            _GridViewBind();
 
         }
 

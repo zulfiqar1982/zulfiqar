@@ -11,23 +11,27 @@ namespace MiniProject
 {
     public partial class ClaimForm : System.Web.UI.Page
     {
-        //public List<Transaction> Transactions;
+        //public List<Expenses> Expenses;
         public Claim ClaimDetail;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ClaimDetail = (Claim)Session["Claim"];
-            if (ClaimDetail.Transactions == null)
+            if (!IsPostBack)
             {
-                ClaimDetail.Transactions = new List<Transaction>();
-                ClaimDetail.Transactions.Add(new Transaction());
-                ClaimDetail.Transactions.Sort();
+                ClaimDetail = (Claim)Session["Claim"];
+                _PopulateClaimDetails();
+                if (ClaimDetail.Expenses == null)
+                {
+                    ClaimDetail.Expenses = new List<Expenses>();
+                    ClaimDetail.Expenses.Add(new Expenses());
+                    ClaimDetail.Expenses.Sort();
 
-                Session["Transaction"] = ClaimDetail.Transactions;
+                    Session["Expenses"] = ClaimDetail.Expenses;
+                }
+
+                _GridViewBind();
             }
-
-            _GridViewBind();
         }
 
         protected void gw_ForEdit_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -40,7 +44,7 @@ namespace MiniProject
                     _GridViewBind();
                     break;
                 case "EDIT":
-                    _PopulateDetails(_GetTransaction(Convert.ToInt32(id)));
+                    _PopulateDetails(_GetExpenses(Convert.ToInt32(id)));
                     mp1.Show();
                     _GridViewBind();
                     break;
@@ -52,29 +56,12 @@ namespace MiniProject
 
         }
 
-        [WebMethod]
-        public static void DeleteTransaction(int index)
-        {
-            ClaimForm claim = new ClaimForm();
-            List<Transaction> Transactions = (List<Transaction>)claim.Session["Transaction"];
-            foreach(Transaction tr in Transactions)
-            {
-                if (tr.Id == index)
-                {
-                    Transactions.Remove(tr);
-                    break;
-                }
-            }
 
-            claim.Session["Transaction"] = Transactions;
-            
-        }
-
-        protected void btnAddTransaction_Click(object sender, EventArgs e)
+        protected void btnAddExpenses_Click(object sender, EventArgs e)
         {
-            //Server.Transfer("TransactionDetails.aspx", true);
-            ClaimDetail.Transactions.Add(new Transaction());
-            gw_ForEdit.DataSource = ClaimDetail.Transactions;
+            //Server.Transfer("ExpensesDetails.aspx", true);
+            ClaimDetail.Expenses.Add(new Expenses());
+            gw_ForEdit.DataSource = ClaimDetail.Expenses;
             gw_ForEdit.DataBind();
         }
 
@@ -96,29 +83,29 @@ namespace MiniProject
 
         private void _DeleteRow(int id)
         {
-            ClaimDetail.Transactions = (List<Transaction>)Session["Transaction"];
-            if(ClaimDetail.Transactions.Count > 0)
+            ClaimDetail.Expenses = (List<Expenses>)Session["Expenses"];
+            if(ClaimDetail.Expenses.Count > 0)
             {
-                foreach(Transaction t in ClaimDetail.Transactions)
+                foreach(Expenses t in ClaimDetail.Expenses)
                 {
                     if(t.Id == id)
                     {
-                        ClaimDetail.Transactions.Remove(t);
+                        ClaimDetail.Expenses.Remove(t);
                         break;
                     }
                 }
 
-               Session["Transaction"] = ClaimDetail.Transactions;
+               Session["Expenses"] = ClaimDetail.Expenses;
             }
         }
 
-        private Transaction _GetTransaction(int id)
+        private Expenses _GetExpenses(int id)
         {
-            Transaction tran = new Transaction();
-            ClaimDetail.Transactions = (List<Transaction>)Session["Transaction"];
-            if (ClaimDetail.Transactions.Count > 0)
+            Expenses tran = new Expenses();
+            ClaimDetail.Expenses = (List<Expenses>)Session["Expenses"];
+            if (ClaimDetail.Expenses.Count > 0)
             {
-                foreach (Transaction t in ClaimDetail.Transactions)
+                foreach (Expenses t in ClaimDetail.Expenses)
                 {
                     if (t.Id == id)
                     {
@@ -127,7 +114,7 @@ namespace MiniProject
                     }
                 }
 
-                Session["Transaction"] = ClaimDetail.Transactions;
+                Session["Expenses"] = ClaimDetail.Expenses;
             }
 
             return tran;
@@ -143,22 +130,58 @@ namespace MiniProject
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            foreach (Transaction trans in ClaimDetail.Transactions)
+            foreach (Expenses expenses in ClaimDetail.Expenses)
             {
-                if (trans.Id.ToString() == txtID.Text)
+                if (expenses.Id.ToString() == txtID.Text)
                 {
-                    trans.Id = Convert.ToInt32(txtID.Text);
-                    trans.Amount = Convert.ToDecimal(txtAmount.Text);
-                    trans.CostCenter = txtCostCenter.Text;
-                    trans.Currency = txtCurrency.Text;
-                    trans.DateofTransaction = Convert.ToDateTime(txtDate.Text);
-                    trans.Description = txtDescription.Text;
-                    trans.ExchangeRate = float.Parse(txtExchangeRate.Text);
-                    trans.GLCode = txtGLCode.Text;
-                    trans.GST = float.Parse(txtGST.Text) ;
-                    txtTotalAmount.Text = trans.TotalAmount.ToString();
+                    expenses.Id = Convert.ToInt32(txtID.Text);
+                    if (txtAmount.Text != string.Empty)
+                    {
+                        expenses.Amount = Convert.ToDecimal(txtAmount.Text);
+                    }
 
-                    trans.Save(ClaimDetail.ID);
+                    if (txtCostCenter.Text != string.Empty)
+                    {
+                        expenses.CostCenter = txtCostCenter.Text;
+                    }
+
+                    if (txtCurrency.Text != string.Empty)
+                    {
+                        expenses.Currency = txtCurrency.Text;
+                    }
+
+                    if (txtDate.Text != string.Empty)
+                    {
+                        expenses.DateofExpenses = Convert.ToDateTime(txtDate.Text);
+                    }
+
+                    if (txtDescription.Text != string.Empty)
+                    {
+                        expenses.Description = txtDescription.Text;
+                    }
+
+                    if (txtExchangeRate.Text != string.Empty)
+                    {
+                        expenses.ExchangeRate = Convert.ToDecimal(txtExchangeRate.Text);
+                    }
+
+                    if (txtGLCode.Text != string.Empty)
+                    {
+                        expenses.GLCode = txtGLCode.Text;
+                    }
+
+                    if (txtGST.Text != string.Empty)
+                    {
+                        expenses.GST = Convert.ToDecimal(txtGST.Text);
+                    }
+
+
+                    if (txtTotalAmount.Text != string.Empty)
+                    {
+                        expenses.TotalAmount = Convert.ToDecimal(txtTotalAmount.Text);
+                    }
+
+                    expenses.Save(ClaimDetail.ID);
                 }
             }
         }
@@ -182,28 +205,52 @@ namespace MiniProject
 
         protected void btnUpdateClaim_Click(object sender, EventArgs e)
         {
-
+            ClaimDetail = (Claim)Session["Claim"];
+            ClaimDetail.User = txtUser.Text;
+            ClaimDetail.ClaimDate = Convert.ToDateTime(txtClaimDate.Text);
+            ClaimDetail.AccountNo = txtAccountCode.Text;
+            ClaimDetail.BankCode = txtBankCode.Text;
+            ClaimDetail.BranchCode = txtBranchCode.Text;
+            ClaimDetail.Save();
+            Session["Claim"] = ClaimDetail;
         }
 
         private void _GridViewBind()
         {
-            ClaimDetail.Transactions = (List<Transaction>)Session["Transaction"];
-            gw_ForEdit.DataSource = ClaimDetail.Transactions;
-            gw_ForEdit.DataBind();
+            
+            if (ClaimDetail.Expenses !=null && ClaimDetail.Expenses.Count > 0)
+            {
+                this.pnlAddEdit.Visible = true;
+                gw_ForEdit.DataSource = ClaimDetail.Expenses;
+                gw_ForEdit.DataBind();
+            }
+            else
+            {
+                this.pnlAddEdit.Visible = false;
+            }
         }
 
-        private void _PopulateDetails(Transaction trans)
+        private void _PopulateDetails(Expenses trans)
         {
             txtID.Text = trans.Id.ToString();
             txtAmount.Text = trans.Amount.ToString();
             txtCostCenter.Text = trans.CostCenter;
             txtCurrency.Text = trans.Currency;
-            txtDate.Text = trans.DateofTransaction.ToString();
+            txtDate.Text = trans.DateofExpenses.ToString();
             txtDescription.Text = trans.Description;
             txtExchangeRate.Text = trans.ExchangeRate.ToString();
             txtGLCode.Text = trans.GLCode;
             txtGST.Text = trans.GST.ToString();
             txtTotalAmount.Text = trans.TotalAmount.ToString();
+        }
+
+        private void _PopulateClaimDetails()
+        {
+            txtUser.Text = ClaimDetail.User;
+            txtClaimDate.Text = ClaimDetail.ClaimDate.ToString("dd MMMM yyyy");
+            txtAccountCode.Text = ClaimDetail.AccountNo;
+            txtBankCode.Text = ClaimDetail.BankCode;
+            txtBranchCode.Text = ClaimDetail.BranchCode;
         }
 
 

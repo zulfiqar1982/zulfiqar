@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace ProjectLibrary
-{
+{[Serializable]
     public class User
     {
         public string EmployeeID { get; set; }

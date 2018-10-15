@@ -15,7 +15,20 @@ namespace ProjectLibrary
             }
             catch(Exception ex)
             {
-                throw;
+                throw new Exception("GetAllUser Error") ;
+            }
+        }
+
+        public List<Claim> GetAllClaim()
+        {
+            try
+            {
+                LoginDAL DAL = new LoginDAL();
+                return DAL.GetAllClaim();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetAllClaim Error");
             }
         }
     }

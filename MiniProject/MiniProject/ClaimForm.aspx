@@ -46,11 +46,11 @@
            
             <table style="width:100%">
                 <tr><td></td><td>
-                <table style="width:100%">
+                <table style="width:50%">
                 <tr><td>
                     <asp:Label ID="Label11" runat="server" Text="Employee"></asp:Label>
                     </td><td></td><td>
-                    <asp:TextBox ID="txtEmployeeId" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtUser" runat="server"></asp:TextBox>
                     </td>
                     <td><asp:Label ID="Label14" runat="server" Text="Claim Date"></asp:Label>
                     </td><td></td><td>
@@ -70,7 +70,7 @@
                      <asp:Label ID="lblAccountCode" runat="server" Text="Account Code"></asp:Label>
                     </td><td></td>
                     <td>
-                    <asp:TextBox ID="TextBox15" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtAccountCode" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                 <tr><td>
@@ -89,6 +89,7 @@
                 </td><td></td></tr>
 
                 <tr><td></td><td style="align-content:center; align-items:center;">
+                    <panel id="pnlExpenses">
          <asp:ScriptManager ID="ScriptManager1" runat="Server" />
             <asp:UpdatePanel runat="server" id="upData">
                  <ContentTemplate>
@@ -206,8 +207,8 @@
                             </Columns>
                         </asp:GridView>
                      
-                       <asp:Button ID="btnAddTransaction" runat="server" Text="Add Claim Transaction" OnClick="btnAddTransaction_Click" />
-                    <cc1:ModalPopupExtender ID ="mp1" runat="server" PopupControlID="pnlAddEdit" TargetControlID="btnAddTransaction"
+                       <asp:Button ID="btnAddExpenses" runat="server" Text="Add Expenses" OnClick="btnAddExpenses_Click" />
+                    <cc1:ModalPopupExtender ID ="mp1" runat="server" PopupControlID="pnlAddEdit" TargetControlID="btnAddExpenses"
                     CancelControlID="btnCancel" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
                      <asp:Panel ID="pnlAddEdit" runat="server" CssClass="modalPopup" style = "display:none; align-self:center; align-content:center">
                          <h3>Transaction Details</h3>
@@ -237,6 +238,7 @@
                      
                      </ContentTemplate>
                 </asp:UpdatePanel>
+                        </panel>
        </td><td></td></tr></table>
         </div>
     </form>

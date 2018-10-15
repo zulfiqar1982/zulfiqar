@@ -31,13 +31,13 @@ namespace MiniProject {
         protected global::System.Web.UI.WebControls.Label Label11;
         
         /// <summary>
-        /// txtEmployeeId control.
+        /// txtUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmployeeId;
+        protected global::System.Web.UI.WebControls.TextBox txtUser;
         
         /// <summary>
         /// Label14 control.
@@ -103,13 +103,13 @@ namespace MiniProject {
         protected global::System.Web.UI.WebControls.Label lblAccountCode;
         
         /// <summary>
-        /// TextBox15 control.
+        /// txtAccountCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox15;
+        protected global::System.Web.UI.WebControls.TextBox txtAccountCode;
         
         /// <summary>
         /// lblBranch control.
@@ -166,13 +166,13 @@ namespace MiniProject {
         protected global::System.Web.UI.WebControls.GridView gw_ForEdit;
         
         /// <summary>
-        /// btnAddTransaction control.
+        /// btnAddExpenses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddTransaction;
+        protected global::System.Web.UI.WebControls.Button btnAddExpenses;
         
         /// <summary>
         /// mp1 control.
