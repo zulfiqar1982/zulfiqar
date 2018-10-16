@@ -14,11 +14,13 @@ namespace MiniProject
         public List<Claim> Claims;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            SystemLogin logs = new SystemLogin();
-            Claims = logs.GetAllClaim();
-            Session["Claims"] = Claims;
-            _GridViewBind();
+            if (!IsPostBack)
+            {
+                SystemLogin logs = new SystemLogin();
+                Claims = logs.GetAllClaim();
+                Session["Claims"] = Claims;
+                _GridViewBind();
+            }
 
         }
 

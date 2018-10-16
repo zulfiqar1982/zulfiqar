@@ -207,7 +207,7 @@ namespace MiniProject
         {
             ClaimDetail = (Claim)Session["Claim"];
             ClaimDetail.User = txtUser.Text;
-            ClaimDetail.ClaimDate = Convert.ToDateTime(txtClaimDate.Text);
+            ClaimDetail.ClaimDate = Common.ConvertToDateTime(txtClaimDate.Text, "dd-MMM-yyyy hh:mm:ss tt");
             ClaimDetail.AccountNo = txtAccountCode.Text;
             ClaimDetail.BankCode = txtBankCode.Text;
             ClaimDetail.BranchCode = txtBranchCode.Text;
@@ -247,7 +247,7 @@ namespace MiniProject
         private void _PopulateClaimDetails()
         {
             txtUser.Text = ClaimDetail.User;
-            txtClaimDate.Text = ClaimDetail.ClaimDate.ToString("dd MMMM yyyy");
+            txtClaimDate.Text = ClaimDetail.ClaimDate.ToString("dd-MMM-yyyy");
             txtAccountCode.Text = ClaimDetail.AccountNo;
             txtBankCode.Text = ClaimDetail.BankCode;
             txtBranchCode.Text = ClaimDetail.BranchCode;

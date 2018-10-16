@@ -28,6 +28,8 @@ namespace ProjectLibrary
                     claimID = Convert.ToInt32(db.ExecuteScalarBySP("Claim_Save", parameters));
                 }
 
+                if (claimID > 0)
+                { claim.ID = claimID; }
                 return claimID > 0;
             }
 

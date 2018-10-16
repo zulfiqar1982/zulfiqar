@@ -80,9 +80,11 @@ namespace ProjectLibrary
                         claim.AccountNo = (string)Common.NoNull(sqlDR["AccountNo"], string.Empty);
                         claim.BankCode = (string)Common.NoNull(sqlDR["BankCode"], string.Empty);
                         claim.BranchCode = (string)Common.NoNull(sqlDR["BranchCode"], string.Empty);
-                        claim.ClaimDate = (DateTime)Common.NoNull(sqlDR["lname"], string.Empty);
+                        claim.ClaimDate = (DateTime)Common.NoNull(sqlDR["ClaimDate"], string.Empty);
                         claim.User = (string)Common.NoNull(sqlDR["User"], string.Empty);
                         claim.Expenses = GetExpensesByClaimID(claim.ID);
+
+                        list.Add(claim);
                     }
 
                     sqlDR.Close();

@@ -94,6 +94,73 @@ namespace ProjectLibrary
 
         }
 
+        public static DateTime ConvertToDateTime(string dateTimeInString,
+            string dateFormat)
+        {
+            if (dateTimeInString == null || dateTimeInString.Trim() == string.Empty)
+            {
+                return DateTime.MinValue;
+            }
+            else
+            {
+                if (IsValidDate(dateTimeInString.Trim()) == true)
+                {
+                    string[] dateFormats = new string[5];
+                    dateFormats[0] = "dd/MM/yyyy";
+                    dateFormats[1] = "dd/MMM/yyyy";
+                    dateFormats[2] = "d/M/yyyy";
+                    dateFormats[3] = "d/M/yy";
+                    dateFormats[4] = "dd-MMM-yyyy";
+
+                    return DateTime.ParseExact(dateTimeInString.Trim(),
+                        dateFormats, null,0);
+
+                }
+                else
+                {
+                    return new DateTime();
+                }
+            }
+
+        }
+
+        public static bool IsValidDate(string dateString)
+        {
+            DateTime dummy = new DateTime();
+            bool valid = false;
+            string[] dateFormats = new string[5];
+            dateFormats[0] = "dd/MM/yyyy";
+            dateFormats[1] = "dd/MMM/yyyy";
+            dateFormats[2] = "d/M/yyyy";
+            dateFormats[3] = "d/M/yy";
+            dateFormats[4] = "dd-MMM-yyyy";
+
+
+            //Accept date format 31/1/2007, 31/01/2007
+            valid = DateTime.TryParseExact(dateString, dateFormats,
+                null, System.Globalization.DateTimeStyles.None, out dummy);
+
+            if (valid == true)
+            {
+                //SqlDateTime only accept range: 1/1/1753 - 12/31/9999
+                if ((dummy.CompareTo(new DateTime(1753, 1, 1)) < 0) ||
+                    (dummy.CompareTo(new DateTime(9999, 12, 31)) > 0))
+                {
+                    return false;
+                }
+                else
+                {
+                    return valid;
+                }
+            }
+            else
+            {
+                return valid;
+            }
+
+
+        }
+
         #endregion
 
         #endregion

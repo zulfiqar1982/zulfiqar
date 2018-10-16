@@ -31,7 +31,7 @@
                             <asp:TemplateField HeaderStyle-Width="50">
                                 <ItemTemplate>
                                     <asp:HiddenField ID="IndexEdit" runat="server" Value='<%# Eval("ID") %>' />
-                                    <asp:LinkButton ID="lnkEdit" Text="Edit" runat="server" OnClick="lnkEdit_Click" />
+                                    <asp:LinkButton ID="lnkEdit" Text="Edit" runat="server" CommandName="Edit" CommandArgument='<%# Eval ("ID")%>'/>
                                 </ItemTemplate>
                                 <HeaderStyle Width="50px" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -47,46 +47,46 @@
                             </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Employee">
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Index") %>'></asp:TextBox>
+                                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("User") %>'></asp:TextBox>
                                     </EditItemTemplate>
                                     <ItemTemplate>
-                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("Index") %>'></asp:Label>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("User") %>'></asp:Label>
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Claim Date">
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("DateofTransaction") %>'></asp:TextBox>
+                                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("ClaimDate") %>'></asp:TextBox>
                                     </EditItemTemplate>
                                     <ItemTemplate>
-                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("DateofTransaction", "{0:dd/MM/yyyy}") %>'></asp:Label>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("ClaimDate", "{0:dd/MM/yyyy}") %>'></asp:Label>
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Branch Code">
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("CostCenter") %>'></asp:TextBox>
+                                        <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("BranchCode") %>'></asp:TextBox>
                                     </EditItemTemplate>
                                     <ItemTemplate>
-                                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("CostCenter") %>'></asp:Label>
+                                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("BranchCode") %>'></asp:Label>
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Bank Code">
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("GLCode") %>'></asp:TextBox>
+                                        <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("BankCode") %>'></asp:TextBox>
                                     </EditItemTemplate>
                                     <ItemTemplate>
-                                        <asp:Label ID="Label4" runat="server" Text='<%# Bind("GLCode") %>'></asp:Label>
+                                        <asp:Label ID="Label4" runat="server" Text='<%# Bind("BankCode") %>'></asp:Label>
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Account No">
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Description") %>'></asp:TextBox>
+                                        <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("AccountNo") %>'></asp:TextBox>
                                     </EditItemTemplate>
                                     <ItemTemplate>
-                                        <asp:Label ID="Label5" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
+                                        <asp:Label ID="Label5" runat="server" Text='<%# Bind("AccountNo") %>'></asp:Label>
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 </asp:TemplateField>
