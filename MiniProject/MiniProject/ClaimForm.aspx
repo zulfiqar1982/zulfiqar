@@ -94,7 +94,7 @@
          <asp:ScriptManager ID="ScriptManager1" runat="Server" />
             <asp:UpdatePanel runat="server" id="upData">
                  <ContentTemplate>
-                        <asp:GridView ID="gw_ForEdit" runat="server" OnRowCommand="gw_ForEdit_RowCommand" AutoGenerateColumns="False" OnRowDeleted="gw_ForEdit_RowDeleted" OnSelectedIndexChanged="gw_ForEdit_SelectedIndexChanged" OnRowDeleting="gw_ForEdit_RowDeleting" ShowHeaderWhenEmpty="true" ShowFooter="True" OnRowEditing="gw_ForEdit_RowEditing">
+                        <asp:GridView ID="gw_ForEdit" runat="server" OnRowCommand="gw_ForEdit_RowCommand" AutoGenerateColumns="False" OnRowDeleted="gw_ForEdit_RowDeleted" OnSelectedIndexChanged="gw_ForEdit_SelectedIndexChanged" OnRowDeleting="gw_ForEdit_RowDeleting" ShowHeaderWhenEmpty="True" ShowFooter="True" OnRowEditing="gw_ForEdit_RowEditing">
                             <Columns>
                             <asp:TemplateField HeaderStyle-Width="50">
                                 <ItemTemplate>
@@ -114,96 +114,35 @@
                                 <HeaderStyle Width="50px" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Index">
-                                    <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Index") %>'></asp:TextBox>
-                                    </EditItemTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("Index") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Date">
-                                    <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("DateofExpenses") %>'></asp:TextBox>
-                                    </EditItemTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("DateofExpenses", "{0:dd/MM/yyyy}") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Cost Center ">
-                                    <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("CostCenter") %>'></asp:TextBox>
-                                    </EditItemTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("CostCenter") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="GL Code">
-                                    <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("GLCode") %>'></asp:TextBox>
-                                    </EditItemTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="Label4" runat="server" Text='<%# Bind("GLCode") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Description">
-                                    <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Description") %>'></asp:TextBox>
-                                    </EditItemTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="Label5" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Currency (RM)">
-                                    <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Currency") %>'></asp:TextBox>
-                                    </EditItemTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="Label6" runat="server" Text='<%# Bind("Currency") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Amount">
-                                    <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("Amount") %>'></asp:TextBox>
-                                    </EditItemTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="Label7" runat="server" Text='<%# Bind("Amount") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="GST">
-                                    <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox8" runat="server" Text='<%# Bind("GST") %>'></asp:TextBox>
-                                    </EditItemTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="Label8" runat="server" Text='<%# Bind("GST") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="ExchangeRate">
-                                    <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox9" runat="server" Text='<%# Bind("ExchangeRate") %>'></asp:TextBox>
-                                    </EditItemTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="Label9" runat="server" Text='<%# Bind("ExchangeRate") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="TotalAmount">
-                                    <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox10" runat="server" Text='<%# Bind("TotalAmount") %>'></asp:TextBox>
-                                    </EditItemTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="Label10" runat="server" Text='<%# Bind("TotalAmount") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                </asp:TemplateField>
+                               
+                   
+                                <asp:BoundField DataField="DateofExpenses" DataFormatString="{0:dd-MMM-yyyy}" HeaderText="Date" >                   
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                </asp:BoundField>
+                                 <asp:BoundField DataField="CostCenter" HeaderText="Cost Center" >                   
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                </asp:BoundField>
+                                 <asp:BoundField DataField="GLCode" HeaderText="GL Code" >                   
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                </asp:BoundField>
+                                 <asp:BoundField DataField="Description" HeaderText="Description" >                   
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                </asp:BoundField>                                 
+                                <asp:BoundField DataField="Currency" HeaderText="Currency" >                   
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                </asp:BoundField>                                 
+                                <asp:BoundField DataField="Amount" HeaderText="Amount" >                   
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                </asp:BoundField>                                 
+                                <asp:BoundField DataField="GST" HeaderText="GST" >                   
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                </asp:BoundField>                                 
+                                <asp:BoundField DataField="ExchangeRate" HeaderText="ExchangeRate" >                   
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                </asp:BoundField> 
+                                 <asp:BoundField DataField="TotalAmount" HeaderText="Total Amount" >                   
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                </asp:BoundField>                                
 
                    
                             </Columns>
