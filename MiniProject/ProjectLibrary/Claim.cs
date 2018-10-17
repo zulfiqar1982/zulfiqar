@@ -40,5 +40,11 @@ namespace ProjectLibrary
             DAL.Save(this);
         }
 
+        public void Delete()
+        {
+            ClaimDAL DAL = new ClaimDAL();
+            DAL.Delete(this.ID);
+        }
+
     }
 }

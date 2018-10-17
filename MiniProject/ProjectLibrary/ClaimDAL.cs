@@ -25,7 +25,7 @@ namespace ProjectLibrary
 
                 using (DataAccess db = new DataAccess(DataAccess.SourceType.Master1))
                 {
-                    claimID = Convert.ToInt32(db.ExecuteScalarBySP("Claim_Save", parameters));
+                    claimID = Convert.ToInt32(db.ExecuteReaderBySP("Claim_Save", parameters));
                 }
 
                 if (claimID > 0)
@@ -33,7 +33,20 @@ namespace ProjectLibrary
                 return claimID > 0;
             }
 
-          
+            public void Delete(int ID)
+            {
+                ArrayList parameters = new ArrayList();
+                parameters.Add(new SqlParameter("@Id",ID));
+           
+
+                using (DataAccess db = new DataAccess(DataAccess.SourceType.Master1))
+                {
+                    db.ExecuteReaderBySP("Claim_Delete", parameters);
+                }
+
+            }
+
+
         }
     }
 }

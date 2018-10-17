@@ -34,29 +34,40 @@ namespace MiniProject
 
         protected void gw_ForEdit_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            string id = e.CommandArgument.ToString();
-            switch (e.CommandName.ToUpper())
-            {
-                case "DELETE":
-                    _DeleteRow(Convert.ToInt32(id));
-                    _GridViewBind();
-                    break;
-                case "EDIT":
-                    Session["Claim"] = _GetClaim(Convert.ToInt32(id));
-                    Server.Transfer("ClaimForm.aspx", true);
-                    break;
-            }
+           
+                string id = e.CommandArgument.ToString();
+                switch (e.CommandName.ToUpper())
+                {
+                    case "DELETE":
+                        _DeleteRow(Convert.ToInt32(id));
+                        _GridViewBind();
+                        break;
+                    case "EDIT":
+                        Session["Claim"] = _GetClaim(Convert.ToInt32(id));
+                        Server.Transfer("ClaimForm.aspx", true);
+                        break;
+                }
+           
         }
 
         private void _GridViewBind()
         {
             Claims = (List<Claim>)Session["Claims"];
+            
+
             gw_ForEdit.DataSource = Claims;
             gw_ForEdit.DataBind();
         }
 
         private Claim _GetClaim(int ID)
         {
+            if (Claims == null)
+            {
+                SystemLogin logs = new SystemLogin();
+                Claims = logs.GetAllClaim();
+                Session["Claims"] = Claims;
+            }
+
             Claim claim = new Claim();
             foreach(Claim c in Claims)
             {
@@ -78,6 +89,7 @@ namespace MiniProject
                 {
                     if (t.ID == id)
                     {
+                        t.Delete();
                         Claims.Remove(t);
                         break;
                     }
@@ -88,6 +100,21 @@ namespace MiniProject
         }
 
         protected void lnkEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void gw_ForEdit_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+
+        protected void gw_ForEdit_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
+        }
+
+        protected void gw_ForEdit_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
 
         }

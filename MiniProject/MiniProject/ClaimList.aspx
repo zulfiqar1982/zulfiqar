@@ -26,7 +26,7 @@
                 <tr><td></td><td>
                     <asp:Button ID="btnAddClaim" runat="server" Text="Create Claim" OnClick="btnAddClaim_Click" /></td><td></td></tr>
                 <tr><td></td><td>
-                     <asp:GridView ID="gw_ForEdit" runat="server" OnRowCommand="gw_ForEdit_RowCommand" AutoGenerateColumns="False" Width="100%" >
+                     <asp:GridView ID="gw_ForEdit" runat="server" OnRowCommand="gw_ForEdit_RowCommand" AutoGenerateColumns="False" Width="100%" OnRowCreated="gw_ForEdit_RowCreated" OnRowDeleting="gw_ForEdit_RowDeleting" OnRowUpdating="gw_ForEdit_RowUpdating" >
                             <Columns>
                             <asp:TemplateField HeaderStyle-Width="50">
                                 <ItemTemplate>

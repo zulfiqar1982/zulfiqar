@@ -29,8 +29,21 @@ namespace ProjectLibrary
 
                 using (DataAccess db = new DataAccess(DataAccess.SourceType.Master1))
                 {
-                    db.ExecuteScalarBySP("Expenses_Save", parameters);
+                    db.ExecuteReaderBySP("Expenses_Save", parameters);
                 }
+            }
+
+            public void Delete(int ID)
+            {
+                ArrayList parameters = new ArrayList();
+                parameters.Add(new SqlParameter("@Id", ID));
+
+
+                using (DataAccess db = new DataAccess(DataAccess.SourceType.Master1))
+                {
+                    db.ExecuteReaderBySP("Expense_Delete", parameters);
+                }
+
             }
 
         }
