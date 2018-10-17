@@ -31,5 +31,19 @@ namespace ProjectLibrary
                 throw new Exception("GetAllClaim Error");
             }
         }
+
+        public List<Expenses> GetExpensesByClaimID(int Id)
+        {
+            try
+            {
+                LoginDAL DAL = new LoginDAL();
+                return DAL.GetExpensesByClaimID(Id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetExpensesByClaimID Error");
+            }
+        }
+
     }
 }

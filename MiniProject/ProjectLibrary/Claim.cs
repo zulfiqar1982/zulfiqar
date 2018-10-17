@@ -34,6 +34,12 @@ namespace ProjectLibrary
             Expenses = new List<Expenses>();
         }
 
+        public Claim(int claimID)
+        {
+            ClaimDAL DAL = new ClaimDAL();
+            DAL.GetClaimByID(claimID);
+        }
+
         public void Save()
         {
             ClaimDAL DAL = new ClaimDAL();
@@ -45,6 +51,8 @@ namespace ProjectLibrary
             ClaimDAL DAL = new ClaimDAL();
             DAL.Delete(this.ID);
         }
+
+
 
     }
 }

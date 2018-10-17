@@ -43,11 +43,11 @@ namespace MiniProject
                     _DeleteRow(Convert.ToInt32(id));
                     _GridViewBind();
                     break;
-                case "EDIT":
-                    _PopulateDetails(_GetExpenses(Convert.ToInt32(id)));
-                    mp1.Show();
-                    _GridViewBind();
-                    break;
+                //case "EDIT":
+                    
+                 //   mp1.Show();
+                   // _PopulateDetails(_GetExpenses(Convert.ToInt32(id)));
+                   // break;
             }
         }
 
@@ -59,10 +59,19 @@ namespace MiniProject
 
         protected void btnAddExpenses_Click(object sender, EventArgs e)
         {
-            //Server.Transfer("ExpensesDetails.aspx", true);
+            if(ClaimDetail == null)
+            {
+                ClaimDetail = (Claim)Session["Claim"];
+            }
+
+            if(ClaimDetail.Expenses == null)
+            {
+                ClaimDetail.Expenses = new List<Expenses>();
+            }
+
             ClaimDetail.Expenses.Add(new Expenses());
-            gw_ForEdit.DataSource = ClaimDetail.Expenses;
-            gw_ForEdit.DataBind();
+
+            _GridViewBind();
         }
 
      
@@ -102,7 +111,7 @@ namespace MiniProject
         private Expenses _GetExpenses(int id)
         {
             Expenses tran = new Expenses();
-            ClaimDetail.Expenses = (List<Expenses>)Session["Expenses"];
+            ClaimDetail = (Claim)Session["Claim"];
             if (ClaimDetail.Expenses.Count > 0)
             {
                 foreach (Expenses t in ClaimDetail.Expenses)
@@ -113,8 +122,6 @@ namespace MiniProject
                         break;
                     }
                 }
-
-                Session["Expenses"] = ClaimDetail.Expenses;
             }
 
             return tran;
@@ -130,6 +137,12 @@ namespace MiniProject
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            ClaimDetail = (Claim)Session["Claim"];
+            if(ClaimDetail.Expenses.Count == 0)
+            {
+                ClaimDetail.Expenses.Add(new Expenses());
+            }
+
             foreach (Expenses expenses in ClaimDetail.Expenses)
             {
                 if (expenses.Id.ToString() == txtID.Text)
@@ -181,9 +194,16 @@ namespace MiniProject
                         expenses.TotalAmount = Convert.ToDecimal(txtTotalAmount.Text);
                     }
 
+                    expenses.User = ClaimDetail.User;
                     expenses.Save(ClaimDetail.ID);
+                    break;
                 }
             }
+
+            ClaimDetail = new Claim(ClaimDetail.ID);
+            Session["Claim"] = ClaimDetail;
+            _GridViewBind();
+            mp1.Hide();
         }
 
         protected void btnReset_Click(object sender, EventArgs e)
@@ -200,7 +220,7 @@ namespace MiniProject
 
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
-            mp1.Show();
+            //mp1.Show();
         }
 
         protected void btnUpdateClaim_Click(object sender, EventArgs e)
@@ -218,8 +238,13 @@ namespace MiniProject
         private void _GridViewBind()
         {
             
-            if (ClaimDetail.Expenses !=null && ClaimDetail.Expenses.Count > 0)
+            if (ClaimDetail.Expenses !=null)
             {
+                if(ClaimDetail.Expenses.Count == 0)
+                {
+                    ClaimDetail.Expenses.Add(new Expenses());
+                }
+
                 this.pnlAddEdit.Visible = true;
                 gw_ForEdit.DataSource = ClaimDetail.Expenses;
                 gw_ForEdit.DataBind();
@@ -253,6 +278,17 @@ namespace MiniProject
             txtBranchCode.Text = ClaimDetail.BranchCode;
         }
 
+        protected void lnkEdit_Click1(object sender, EventArgs e)
+        {
+            string expensesID = ((System.Web.UI.WebControls.LinkButton)sender).CommandArgument.ToString();
+            
+            _PopulateDetails(_GetExpenses(Convert.ToInt32(expensesID)));
+            mp1.Show();
+        }
 
+        protected void gw_ForEdit_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+
+        }
     }
 }

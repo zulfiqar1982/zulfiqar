@@ -45,6 +45,7 @@
         <div>
            
             <table style="width:100%">
+                <tr><td></td><td><h3>Claim Details</h3></td><td></td></tr>
                 <tr><td></td><td>
                 <table style="width:50%">
                 <tr><td>
@@ -89,16 +90,17 @@
                 </td><td></td></tr>
 
                 <tr><td></td><td style="align-content:center; align-items:center;">
-                    <panel id="pnlExpenses">
+                    <%--<panel id="pnlExpenses">--%>
          <asp:ScriptManager ID="ScriptManager1" runat="Server" />
             <asp:UpdatePanel runat="server" id="upData">
                  <ContentTemplate>
-                        <asp:GridView ID="gw_ForEdit" runat="server" OnRowCommand="gw_ForEdit_RowCommand" AutoGenerateColumns="False" OnRowDeleted="gw_ForEdit_RowDeleted" OnSelectedIndexChanged="gw_ForEdit_SelectedIndexChanged" OnRowDeleting="gw_ForEdit_RowDeleting">
+                        <asp:GridView ID="gw_ForEdit" runat="server" OnRowCommand="gw_ForEdit_RowCommand" AutoGenerateColumns="False" OnRowDeleted="gw_ForEdit_RowDeleted" OnSelectedIndexChanged="gw_ForEdit_SelectedIndexChanged" OnRowDeleting="gw_ForEdit_RowDeleting" ShowHeaderWhenEmpty="true" ShowFooter="True" OnRowEditing="gw_ForEdit_RowEditing">
                             <Columns>
                             <asp:TemplateField HeaderStyle-Width="50">
                                 <ItemTemplate>
                                     <asp:HiddenField ID="IndexEdit" runat="server" Value='<%# Eval("ID") %>' />
-                                    <asp:LinkButton ID="lnkEdit" Text="Edit" runat="server" OnClick="lnkEdit_Click" />
+                                    <asp:LinkButton ID="lnkEdit" Text="Edit" runat="server"  CommandName="Edit" 
+                                                        CommandArgument='<%# Eval ("ID")%>' OnClick="lnkEdit_Click1" />
                                 </ItemTemplate>
                                 <HeaderStyle Width="50px" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -123,10 +125,10 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Date">
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("DateofTransaction") %>'></asp:TextBox>
+                                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("DateofExpenses") %>'></asp:TextBox>
                                     </EditItemTemplate>
                                     <ItemTemplate>
-                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("DateofTransaction", "{0:dd/MM/yyyy}") %>'></asp:Label>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("DateofExpenses", "{0:dd/MM/yyyy}") %>'></asp:Label>
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 </asp:TemplateField>
@@ -211,7 +213,7 @@
                     <cc1:ModalPopupExtender ID ="mp1" runat="server" PopupControlID="pnlAddEdit" TargetControlID="btnAddExpenses"
                     CancelControlID="btnCancel" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
                      <asp:Panel ID="pnlAddEdit" runat="server" CssClass="modalPopup" style = "display:none; align-self:center; align-content:center">
-                         <h3>Transaction Details</h3>
+                         <h3>Expenses Details</h3>
                          <table>
                          <tr><td><asp:Label ID="Label10" runat="server" Text="ID"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtID" runat="server" Width="194px"></asp:TextBox></td></tr>
                          <tr><td><asp:Label ID="Label1" runat="server" Text="Date"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtDate" runat="server" Width="194px"></asp:TextBox><asp:Image ID="imgClaimDetailDate" runat="server" 
@@ -238,7 +240,7 @@
                      
                      </ContentTemplate>
                 </asp:UpdatePanel>
-                        </panel>
+                        <%--</panel>--%>
        </td><td></td></tr></table>
         </div>
     </form>

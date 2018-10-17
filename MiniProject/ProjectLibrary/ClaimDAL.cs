@@ -25,11 +25,22 @@ namespace ProjectLibrary
 
                 using (DataAccess db = new DataAccess(DataAccess.SourceType.Master1))
                 {
-                    claimID = Convert.ToInt32(db.ExecuteReaderBySP("Claim_Save", parameters));
+                    SqlDataReader result = db.ExecuteReaderBySP("Claim_Save", parameters);
+                    if (result != null)
+                    {
+                        while (result.Read())
+                        {
+                            claimID = (int)Common.NoNull(result["ID"], "0");
+                        }
+
+                        result.Close();
+                        result.Dispose();
+                    }
                 }
 
                 if (claimID > 0)
                 { claim.ID = claimID; }
+
                 return claimID > 0;
             }
 
@@ -44,6 +55,42 @@ namespace ProjectLibrary
                     db.ExecuteReaderBySP("Claim_Delete", parameters);
                 }
 
+            }
+
+            public Claim GetClaimByID(int Id)
+            {
+                ArrayList parameters = new ArrayList();
+                parameters.Add(new SqlParameter("@Id", Id));
+
+                using (DataAccess db = new DataAccess(DataAccess.SourceType.Master1))
+                {
+                    return _GenerateClaims(db.ExecuteReaderBySP("GetClaimByID", parameters));
+                }
+            }
+
+            private Claim _GenerateClaims(SqlDataReader sqlDR)
+            {
+                Claim claim = new Claim();
+                if (sqlDR != null)
+                {
+                    while (sqlDR.Read())
+                    {
+                        claim.ID = (int)Common.NoNull(sqlDR["ID"], 0);
+                        claim.AccountNo = (string)Common.NoNull(sqlDR["AccountNo"], string.Empty);
+                        claim.BankCode = (string)Common.NoNull(sqlDR["BankCode"], string.Empty);
+                        claim.BranchCode = (string)Common.NoNull(sqlDR["BranchCode"], string.Empty);
+                        claim.ClaimDate = (DateTime)Common.NoNull(sqlDR["ClaimDate"], string.Empty);
+                        claim.User = (string)Common.NoNull(sqlDR["User"], string.Empty);
+                        SystemLogin log = new SystemLogin();
+                        claim.Expenses = log.GetExpensesByClaimID(claim.ID);
+
+                    }
+
+                    sqlDR.Close();
+                    sqlDR.Dispose();
+                }
+
+                return claim;
             }
 
 

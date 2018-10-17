@@ -113,7 +113,7 @@ namespace ProjectLibrary
                         expenses.ClaimID = (int)Common.NoNull(sqlDR["ClaimsID"], string.Empty);
                         expenses.DateofExpenses = (DateTime)Common.NoNull(sqlDR["ExpensesDate"], string.Empty);
                         expenses.User = (string)Common.NoNull(sqlDR["User"], string.Empty);
-
+                        list.Add(expenses);
                     }
 
                     sqlDR.Close();

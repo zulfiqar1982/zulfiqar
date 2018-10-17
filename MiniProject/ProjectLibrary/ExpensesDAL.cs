@@ -29,7 +29,17 @@ namespace ProjectLibrary
 
                 using (DataAccess db = new DataAccess(DataAccess.SourceType.Master1))
                 {
-                    db.ExecuteReaderBySP("Expenses_Save", parameters);
+                    SqlDataReader result = db.ExecuteReaderBySP("Expenses_Save", parameters);
+                    if (result != null)
+                    {
+                        while (result.Read())
+                        {
+                            expenses.Id = (int)Common.NoNull(result["ID"], "0");
+                        }
+
+                        result.Close();
+                        result.Dispose();
+                    }
                 }
             }
 
