@@ -34,11 +34,6 @@ namespace ProjectLibrary
             Expenses = new List<Expenses>();
         }
 
-        public Claim(int claimID)
-        {
-            ClaimDAL DAL = new ClaimDAL();
-            DAL.GetClaimByID(claimID);
-        }
 
         public void Save()
         {

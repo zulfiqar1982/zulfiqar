@@ -30,7 +30,7 @@ namespace ProjectLibrary
                     {
                         while (result.Read())
                         {
-                            claimID = (int)Common.NoNull(result["ID"], "0");
+                            claimID = Convert.ToInt32(Common.NoNull(result["ID"], "0"));
                         }
 
                         result.Close();
@@ -57,20 +57,20 @@ namespace ProjectLibrary
 
             }
 
-            public Claim GetClaimByID(int Id)
+            public void GetClaimByID(Claim claim)
             {
                 ArrayList parameters = new ArrayList();
-                parameters.Add(new SqlParameter("@Id", Id));
+                parameters.Add(new SqlParameter("@Id", claim.ID));
 
                 using (DataAccess db = new DataAccess(DataAccess.SourceType.Master1))
                 {
-                    return _GenerateClaims(db.ExecuteReaderBySP("GetClaimByID", parameters));
+                    claim = _GenerateClaims(db.ExecuteReaderBySP("GetClaimByID", parameters), claim);
                 }
             }
 
-            private Claim _GenerateClaims(SqlDataReader sqlDR)
+            private Claim _GenerateClaims(SqlDataReader sqlDR, Claim claim)
             {
-                Claim claim = new Claim();
+                 claim = new Claim();
                 if (sqlDR != null)
                 {
                     while (sqlDR.Read())

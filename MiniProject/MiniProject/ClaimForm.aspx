@@ -37,6 +37,10 @@
         height: 460px;
     }
 
+         .auto-style1 {
+             width: 1132px;
+         }
+
     </style>
 </head>
 <body>
@@ -44,9 +48,15 @@
 
         <div>
            
+            <asp:HiddenField ID="HFClaimID" runat="server" />
+           
             <table style="width:100%">
-                <tr><td></td><td><h3>Claim Details</h3></td><td></td></tr>
-                <tr><td></td><td>
+                <tr><td></td><td class="auto-style1"><h3>Claim Details</h3></td><td>
+                    <asp:LinkButton ID="lnkClaim" Text="Claim List" runat="server" OnClick="lnkClaim_Click"   />
+&nbsp;
+                    <asp:LinkButton ID="lnkLogout" Text="Logout" runat="server"   />
+                    </td></tr>
+                <tr><td></td><td class="auto-style1">
                 <table style="width:50%">
                 <tr><td>
                     <asp:Label ID="Label11" runat="server" Text="Employee"></asp:Label>
@@ -89,12 +99,12 @@
 
                 </td><td></td></tr>
 
-                <tr><td></td><td style="align-content:center; align-items:center;">
+                <tr><td></td><td style="align-content:center; align-items:center;" class="auto-style1">
                     <%--<panel id="pnlExpenses">--%>
-         <asp:ScriptManager ID="ScriptManager1" runat="Server" />
-            <asp:UpdatePanel runat="server" id="upData">
+                      <asp:ScriptManager ID="ScriptManager1" runat="Server" />
+           <asp:UpdatePanel runat="server" id="upData">
                  <ContentTemplate>
-                        <asp:GridView ID="gw_ForEdit" runat="server" OnRowCommand="gw_ForEdit_RowCommand" AutoGenerateColumns="False" OnRowDeleted="gw_ForEdit_RowDeleted" OnSelectedIndexChanged="gw_ForEdit_SelectedIndexChanged" OnRowDeleting="gw_ForEdit_RowDeleting" ShowHeaderWhenEmpty="True" ShowFooter="True" OnRowEditing="gw_ForEdit_RowEditing">
+                        <asp:GridView ID="gw_ForEdit" runat="server" OnRowCommand="gw_ForEdit_RowCommand" AutoGenerateColumns="False" OnRowDeleted="gw_ForEdit_RowDeleted" OnSelectedIndexChanged="gw_ForEdit_SelectedIndexChanged" OnRowDeleting="gw_ForEdit_RowDeleting" ShowHeaderWhenEmpty="True" ShowFooter="True" OnRowCreated="gw_ForEdit_RowCreated" OnRowEditing="gw_ForEdit_RowEditing">
                             <Columns>
                             <asp:TemplateField HeaderStyle-Width="50">
                                 <ItemTemplate>
@@ -147,7 +157,7 @@
                    
                             </Columns>
                         </asp:GridView>
-                     
+                             
                        <asp:Button ID="btnAddExpenses" runat="server" Text="Add Expenses" OnClick="btnAddExpenses_Click" />
                     <cc1:ModalPopupExtender ID ="mp1" runat="server" PopupControlID="pnlAddEdit" TargetControlID="btnAddExpenses"
                     CancelControlID="btnCancel" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>

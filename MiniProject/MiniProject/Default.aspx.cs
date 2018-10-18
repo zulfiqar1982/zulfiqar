@@ -11,7 +11,7 @@ namespace MiniProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Response.Redirect("LoginPage.aspx");
         }
     }
 }

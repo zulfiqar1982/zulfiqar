@@ -62,6 +62,12 @@ namespace ProjectLibrary
             DAL.Save(this);
 
         }
+
+        public void Delete()
+        {
+            ExpensesDAL DAL = new ExpensesDAL();
+            DAL.Delete(this.iD);
+        }
         
     }
 }
