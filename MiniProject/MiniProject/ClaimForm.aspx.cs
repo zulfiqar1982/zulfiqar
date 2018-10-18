@@ -288,7 +288,7 @@ namespace MiniProject
 
         protected void gw_ForEdit_RowEditing(object sender, GridViewEditEventArgs e)
         {
-
+            gw_ForEdit.EditIndex = -1;
         }
     }
 }
