@@ -16,6 +16,11 @@ namespace MiniProject
         {
             if (!IsPostBack)
             {
+                if (Session["User"] == null)
+                {
+                    Server.Transfer("LoginPage.aspx", true);
+                }
+
                 SystemLogin logs = new SystemLogin();
                 Claims = logs.GetAllClaim();
                 Session["Claims"] = Claims;
@@ -117,6 +122,12 @@ namespace MiniProject
         protected void gw_ForEdit_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
 
+        }
+
+        protected void lnkLogout_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("LoginPage.aspx", true);
+            Session["User"] = null;
         }
     }
 }

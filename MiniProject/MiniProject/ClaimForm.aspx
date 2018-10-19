@@ -41,6 +41,13 @@
              width: 1132px;
          }
 
+         .auto-style2 {
+             border: 3px solid black;
+             background-color: #FFFFFF;
+             padding-top: 10px;
+             padding-left: 10px;
+         }
+         
     </style>
 </head>
 <body>
@@ -54,7 +61,7 @@
                 <tr><td></td><td class="auto-style1"><h3>Claim Details</h3></td><td>
                     <asp:LinkButton ID="lnkClaim" Text="Claim List" runat="server" OnClick="lnkClaim_Click"   />
 &nbsp;
-                    <asp:LinkButton ID="lnkLogout" Text="Logout" runat="server"   />
+                    <asp:LinkButton ID="lnkLogout" Text="Logout" runat="server" OnClick="lnkLogout_Click"   />
                     </td></tr>
                 <tr><td></td><td class="auto-style1">
                 <table style="width:50%">
@@ -161,26 +168,85 @@
                        <asp:Button ID="btnAddExpenses" runat="server" Text="Add Expenses" OnClick="btnAddExpenses_Click" />
                     <cc1:ModalPopupExtender ID ="mp1" runat="server" PopupControlID="pnlAddEdit" TargetControlID="btnAddExpenses"
                     CancelControlID="btnCancel" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
-                     <asp:Panel ID="pnlAddEdit" runat="server" CssClass="modalPopup" style = "display:none; align-self:center; align-content:center">
+                     <asp:Panel ID="pnlAddEdit" runat="server" CssClass="auto-style2" style = "display:grid; align-self:center; align-content:center" Width="565px">
                          <h3>Expenses Details</h3>
                          <table>
-                         <tr><td><asp:Label ID="Label10" runat="server" Text="ID"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtID" runat="server" Width="194px"></asp:TextBox></td></tr>
-                         <tr><td><asp:Label ID="Label1" runat="server" Text="Date"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtDate" runat="server" Width="194px"></asp:TextBox><asp:Image ID="imgClaimDetailDate" runat="server" 
-                                        ImageUrl="~/Images/calendar.gif" />
-                        <cc3:CalendarExtender ID="CalendarExtender2" runat="server"
-                                        TargetControlID="txtDate" PopupButtonID="imgClaimDetailDate" Format="dd-MMM-yyyy">
-                                    </cc3:CalendarExtender></td></tr>
-                         <tr><td><asp:Label ID="Label2" runat="server" Text="Cost Center"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtCostCenter" runat="server" Width="194px"></asp:TextBox></td></tr>
-                         <tr><td><asp:Label ID="Label3" runat="server" Text="GL Code"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtGLCode" runat="server" Width="194px"></asp:TextBox></td></tr>
-                         <tr><td><asp:Label ID="Label4" runat="server" Text="Description"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtDescription" runat="server" Width="194px"></asp:TextBox></td></tr>
-                         <tr><td><asp:Label ID="Label5" runat="server" Text="Currency"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtCurrency" runat="server" Width="194px"></asp:TextBox></td></tr>
-                         <tr><td><asp:Label ID="Label6" runat="server" Text="Amount"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtAmount" runat="server" Width="194px"></asp:TextBox></td></tr>
-                         <tr><td><asp:Label ID="Label7" runat="server" Text="GST"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtGST" runat="server" Width="194px"></asp:TextBox></td></tr>
-                         <tr><td><asp:Label ID="Label8" runat="server" Text="Exchange Rate"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtExchangeRate" runat="server" Width="194px"></asp:TextBox></td></tr>
-                         <tr><td><asp:Label ID="Label9" runat="server" Text="Tota Amount"></asp:Label></td> : <td></td><td><asp:TextBox ID="txtTotalAmount" runat="server" Width="194px"></asp:TextBox></td></tr>
+                         <tr><td><asp:Label ID="Label10" runat="server" Text="ID"></asp:Label></td>                                
+                                 <td>:</td>
+                                 <td>
+                                     <asp:Label ID="lblID" runat="server" Text=""></asp:Label>
+                                 </td>
+                                 <td></td>
+
+                             </tr>
+                         <tr><td><asp:Label ID="Label1" runat="server" Text="Date"></asp:Label></td> 
+                                 <td>:</td>
+                                 <td>
+                                     <asp:TextBox ID="txtDate" runat="server" Width="194px"></asp:TextBox>
+                                     <asp:Image ID="imgClaimDetailDate" runat="server" ImageUrl="~/Images/calendar.gif" />
+                                     <cc3:CalendarExtender ID="CalendarExtender2" runat="server" Format="dd-MMM-yyyy" PopupButtonID="imgClaimDetailDate" TargetControlID="txtDate" />
+                                 </td>
+                                 <td><asp:Label ID="lblDate" runat="server" Text="Please fill in date" ForeColor="Red" Visible="false"></asp:Label></td>
+                             </tr>
+                         <tr><td><asp:Label ID="Label2" runat="server" Text="Cost Center" ></asp:Label></td>                              
+                                 <td>:</td>
+                                 <td>
+                                     <asp:TextBox ID="txtCostCenter" runat="server" Width="194px"></asp:TextBox>
+                                 </td>
+                             </tr>
+                         <tr><td><asp:Label ID="Label3" runat="server" Text="GL Code"></asp:Label></td> 
+                                 <td>:</td>
+                                 <td>
+                                     <asp:TextBox ID="txtGLCode" runat="server" Width="194px"></asp:TextBox>
+                                 </td>
+                                 <td><asp:Label ID="lblGLCode" runat="server" Text="Please fill in GL Code" Visible="false" ForeColor="Red"></asp:Label></td>
+                             </tr>
+                         
+                         <tr><td><asp:Label ID="Label4" runat="server" Text="Description"></asp:Label></td> 
+                                 <td>:</td>
+                                 <td>
+                                     <asp:TextBox ID="txtDescription" runat="server" Width="194px"></asp:TextBox>
+                                 </td>
+                             </tr>
+                         <tr><td><asp:Label ID="Label5" runat="server" Text="Currency"></asp:Label></td> 
+                                 <td>:</td>
+                                 <td>
+                                     <asp:TextBox ID="txtCurrency" runat="server" Width="194px"></asp:TextBox>
+                                 </td>
+                                 <td></td>
+                             </tr>
+                         <tr><td><asp:Label ID="Label6" runat="server" Text="Amount"></asp:Label></td> 
+                                 <td>:</td>
+                                 <td>
+                                     <asp:TextBox ID="txtAmount" runat="server" Width="194px"></asp:TextBox>
+                                 </td>
+                                   <td><asp:Label ID="lblAmount" runat="server" Text="Please fill in amount" Visible="false" ForeColor="Red"></asp:Label></td>
+                             </tr>
+                         <tr><td><asp:Label ID="Label7" runat="server" Text="GST"></asp:Label></td> 
+                                 <td>:</td>
+                                 <td>
+                                     <asp:TextBox ID="txtGST" runat="server" Width="194px"></asp:TextBox>
+                                 </td>
+                                 <td><asp:Label ID="lblGST" runat="server" Text="Please fill in GST" Visible="false" ForeColor="Red"></asp:Label></td>
+                             </tr>
+                         <tr><td><asp:Label ID="Label8" runat="server" Text="Exchange Rate"></asp:Label></td> 
+                                 <td>:</td>
+                                 <td>
+                                     <asp:TextBox ID="txtExchangeRate" runat="server" Width="194px"></asp:TextBox>
+                                 </td>
+                                   <td><asp:Label ID="lblExchangeRate" runat="server" Text="Please fill in Exchange Rate" Visible="false" ForeColor="Red"></asp:Label></td>
+                             </tr>
+                         <tr><td><asp:Label ID="Label9" runat="server" Text="Tota Amount"></asp:Label></td> 
+
+                                 <td>:</td>
+                                 <td>
+                                     <asp:TextBox ID="txtTotalAmount" runat="server" Width="194px"></asp:TextBox>
+                                 </td>
+                                   <td><asp:Label ID="lblTotalAmount" runat="server" Text="Please fill in Total Amount" Visible="false" ForeColor="Red"></asp:Label></td>
+                             </tr>
                          <tr><td></td><td></td><td></td></tr>
                          <tr><td></td><td></td><td>
-                    <table><tr><td><asp:Button ID="btnSave" runat="server" Text="Save" Width="56px" OnClick="btnSave_Click" /></td><td><asp:Button ID="btnReset" runat="server" Text="Reset" Width="56px" OnClick="btnReset_Click" /></td><td><asp:Button ID="btnCancel" runat="server" Text="Cancel" Width="56px" OnClick="btnCancel_Click" /></td></tr></table>
+                    <table><tr><td><asp:Button ID="btnSave" runat="server" Text="Save" Width="56px" OnClick="btnSave_Click" /></td><td></td><td><asp:Button ID="btnCancel" runat="server" Text="Cancel" Width="56px" OnClick="btnCancel_Click" /></td></tr></table>
                     
                     </td></tr>
             </table>

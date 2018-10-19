@@ -19,8 +19,13 @@ namespace MiniProject
         {
             if (!IsPostBack)
             {
-                
+                if(Session["User"] == null)
+                {
+                    Server.Transfer("LoginPage.aspx", true);
+                }
+
                 ClaimDetail = (Claim)Session["Claim"];
+
                 SystemLogin sl = new SystemLogin();
                 foreach(Claim cl in sl.GetAllClaim())
                 {
@@ -36,7 +41,6 @@ namespace MiniProject
                 if (ClaimDetail.Expenses == null)
                 {
                     ClaimDetail.Expenses = new List<Expenses>();
-                    ClaimDetail.Expenses.Add(new Expenses());
                     ClaimDetail.Expenses.Sort();
 
                     ViewState["Expenses"] = ClaimDetail.Expenses;
@@ -44,6 +48,8 @@ namespace MiniProject
 
                 _GridViewBind();
                 _PopulateDetails(new Expenses());
+
+                btnAddExpenses.Enabled = ClaimDetail.ID > 0;
 
             }
         }
@@ -160,13 +166,9 @@ namespace MiniProject
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            ClaimDetail = (Claim)ViewState["Claim"];
-            if(ClaimDetail.Expenses.Count == 0)
-            {
-                ClaimDetail.Expenses.Add(new Expenses());
-            }
+            ClaimDetail = (Claim)ViewState["Claim"];           
 
-            if (txtID.Text == "0")
+            if (lblID.Text == "0")
             {
                 Expenses expenses = new Expenses();
                 expenses.ClaimID = ClaimDetail.ID;
@@ -178,7 +180,7 @@ namespace MiniProject
 
                 foreach (Expenses expenses in ClaimDetail.Expenses)
                 {
-                    if (expenses.Id.ToString() == txtID.Text)
+                    if (expenses.Id.ToString() == lblID.Text)
                     {
 
                         _AssignData(expenses);
@@ -231,7 +233,9 @@ namespace MiniProject
             ClaimDetail.BranchCode = txtBranchCode.Text;
             ClaimDetail.Save();
             HFClaimID.Value = ClaimDetail.ID.ToString();
-            ViewState["Claim"] = ClaimDetail;
+            Session["Claim"] = ClaimDetail;
+
+            Response.Redirect("ClaimForm.aspx");
         }
 
         private void _GridViewBind()
@@ -252,7 +256,7 @@ namespace MiniProject
             {
                 if(ClaimDetail.Expenses.Count == 0)
                 {
-                    ClaimDetail.Expenses.Add(new Expenses());
+                   // ClaimDetail.Expenses.Add(new Expenses());
                 }
 
                 this.pnlAddEdit.Visible = true;
@@ -267,7 +271,7 @@ namespace MiniProject
 
         private void _PopulateDetails(Expenses trans)
         {
-            txtID.Text = trans.Id.ToString();
+            lblID.Text = trans.Id.ToString();
             txtAmount.Text = trans.Amount.ToString();
             txtCostCenter.Text = trans.CostCenter;
             txtCurrency.Text = trans.Currency;
@@ -305,9 +309,15 @@ namespace MiniProject
 
         private void _AssignData(Expenses expenses)
         {
+            bool check = true;
             if (txtAmount.Text != string.Empty)
             {
                 expenses.Amount = Convert.ToDecimal(txtAmount.Text);
+            }
+            else
+            {
+                lblAmount.Visible = true;
+                check = false;
             }
 
             if (txtCostCenter.Text != string.Empty)
@@ -324,6 +334,11 @@ namespace MiniProject
             {
                 expenses.DateofExpenses = Convert.ToDateTime(txtDate.Text);
             }
+            else
+            {
+                lblDate.Visible = true;
+                check = false;
+            }
 
             if (txtDescription.Text != string.Empty)
             {
@@ -334,15 +349,30 @@ namespace MiniProject
             {
                 expenses.ExchangeRate = Convert.ToDecimal(txtExchangeRate.Text);
             }
+            else
+            {
+                lblExchangeRate.Visible = true;
+                check = false;
+            }
 
             if (txtGLCode.Text != string.Empty)
             {
                 expenses.GLCode = txtGLCode.Text;
             }
+            else
+            {
+                lblGLCode.Visible = true;
+                check = false;
+            }
 
             if (txtGST.Text != string.Empty)
             {
                 expenses.GST = Convert.ToDecimal(txtGST.Text);
+            }
+            else
+            {
+                lblGST.Visible = true;
+                check = false;
             }
 
 
@@ -350,9 +380,17 @@ namespace MiniProject
             {
                 expenses.TotalAmount = Convert.ToDecimal(txtTotalAmount.Text);
             }
+            else
+            {
+                lblTotalAmount.Visible = true;
+                check = false;
+            }
 
-            expenses.User = ClaimDetail.User;
-            expenses.Save(ClaimDetail.ID);
+            if (check)
+            {
+                expenses.User = ClaimDetail.User;
+                expenses.Save(ClaimDetail.ID);
+            }
         }
 
         protected void gw_ForEdit_RowCreated(object sender, GridViewRowEventArgs e)
@@ -364,6 +402,12 @@ namespace MiniProject
         {
             //gw_ForEdit.EditIndex = -1;
 
+        }
+
+        protected void lnkLogout_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("LoginPage.aspx", true);
+            Session["User"] = null;
         }
     }
 }

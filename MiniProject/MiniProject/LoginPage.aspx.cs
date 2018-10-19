@@ -26,6 +26,7 @@ namespace MiniProject
                 {
                     if (user.Password.Equals(txt_password.Text))
                     {
+                        Session["User"] = user;
                         Server.Transfer("ClaimList.aspx", true);
                        
                     }
